@@ -34,7 +34,7 @@ require File.dirname(__FILE__) + '/dorothy2/BFM'
 require File.dirname(__FILE__) + '/dorothy2/do-utils'
 require File.dirname(__FILE__) + '/dorothy2/do-logger'
 require File.dirname(__FILE__) + '/dorothy2/version'
-
+require File.dirname(__FILE__) + '/dorothy2/Volatil'
 module Dorothy
 
   def get_time(local=Time.new)
@@ -96,6 +96,7 @@ module Dorothy
     bin.dir_pcap = "#{sample_home}/pcap/"
     bin.dir_screens = "#{sample_home}/screens/"
     bin.dir_downloads = "#{sample_home}/downloads/"
+    bin.dir_memoryfile = "#{sample_home}/memoryfile/"
 
     vm_log_header = "VM#{guestvm[0]} ".yellow + "[" + "#{anal_id}".red + "] "
 
@@ -110,12 +111,14 @@ module Dorothy
         Dir.mkdir bin.dir_pcap
         Dir.mkdir bin.dir_screens
         Dir.mkdir bin.dir_downloads
+        Dir.mkdir bin.dir_memoryfile
 
         if VERBOSE
           LOGGER.debug "VSM", sample_home
           LOGGER.debug "VSM",bin.dir_bin
           LOGGER.debug "VSM",bin.dir_pcap
           LOGGER.debug "VSM",bin.dir_screens
+          LOGGER.debug "VSM",bin.dir_memoryfile
         end
 
       else
@@ -182,6 +185,7 @@ module Dorothy
           1) Take Screenshot
           2) Take ProcessList
           3) Execute #{bin.full_filename}
+	  4) Memory Analysis
           0) Continue and revert the machine.
 
           Select a nuber:"
@@ -203,7 +207,30 @@ module Dorothy
             when "3"
               guestpid = vsm.exec_file("C:\\#{bin.full_filename}",EXTENSIONS[bin.extension])
               LOGGER.debug "MANUAL-MODE",vm_log_header + "Program executed with PID #{guestpid}"
-            #when "x" then -- More interactive actions to add
+	    when "4"
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Taking new VM snapshot.."	
+	      vsm.createSnapshot('infected')	
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "The snapshot " + "newSnapshot" + " has been created."	
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Reverting to previous snapshot.."	
+	      vsm.revertToSnapshot('baseline')	
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Removing snapshot for memory extraction.."	
+	      vsm.deleteSnapshot('infected')		
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Bringing memory files.."
+	      memFullFilename=Ssh.getremotememfile(DoroSettings.esx[:host], DoroSettings.esx[:user],DoroSettings.esx[:pass], DoroSettings.esx[:VMhome])
+	      onlyFilename=memFullFilename.split(/\//).last
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "source:"+memFullFilename
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "target:"+bin.dir_memoryfile + onlyFilename
+	      Ssh.download(DoroSettings.esx[:host], DoroSettings.esx[:user],DoroSettings.esx[:pass], memFullFilename.strip!, bin.dir_memoryfile)	
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Transfer completed."
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Converting memory files..."
+	      rawmem=Volatil.VMSN2Raw(bin.dir_memoryfile,onlyFilename)
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "New memory file created:" + rawmem
+              LOGGER.info "MANUAL-MODE",vm_log_header +  "Analyzing memory..."
+	      Volatil.RogueProcesses(rawmem)
+	      Volatil.NetConnections(rawmem)
+	      Volatil.AutoRun(rawmem)
+	      #Volatil.CodeInjection(DoroSettings.memory[:memfile)
+           #when "x" then -- More interactive actions to add
             else
               LOGGER.info "MANUAL-MODE",vm_log_header +  menu
           end
@@ -239,7 +266,9 @@ module Dorothy
       #Stop Sniffer, revert the VM
       stop_nam_revertvm(@nam, pid, vsm, reverted, vm_log_header)
 
-      vsm.revert_vm
+      #vsm.revert_vm
+      #Revertir a una baseline
+      vsm.revertToSnapshot('baseline')
       reverted = true
 
       #Analyze new procs
@@ -344,8 +373,8 @@ module Dorothy
       FileUtils.rm(bin.binpath)
       LOGGER.info "VSM", vm_log_header + "Process compleated successfully"
 
-    rescue SignalException, RuntimeError
-      LOGGER.warn "DOROTHY", "SIGINT".red + " Catched, exiting gracefully."
+    rescue SignalException, RuntimeError => e  
+      LOGGER.warn "DOROTHY", "SIGINT".red + " Catched, exiting gracefully." + e.message
       stop_nam_revertvm(@nam, pid, vsm, reverted, vm_log_header)
       LOGGER.debug "VSM", vm_log_header + "Removing working dir"
       FileUtils.rm_r(sample_home)

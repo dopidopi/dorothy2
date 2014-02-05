@@ -7,11 +7,27 @@
 ### want.
 #############################################
 ---
-exe:
+
+pdf:
+  prog_name: Acrobat reader
+  prog_path: C:\windows\system32\cmd.exe
+  prog_args: /C start "" /max
+
+
+png:
   prog_name: Windows CMD.exe
   prog_path: C:\windows\system32\cmd.exe
   prog_args: /C
 
+zip:
+  prog_name: Windows CMD.exe
+  prog_path: C:\windows\system32\cmd.exe
+  prog_args: /C
+
+exe:
+  prog_name: Windows CMD.exe
+  prog_path: C:\windows\system32\cmd.exe
+  prog_args: /C
 
 bat:
   prog_name: Windows CMD.exe
@@ -19,23 +35,13 @@ bat:
   prog_args: /C
 
 
-dll:
-  prog_name: Windows Rundll32.exe
-  prog_path: C:\windows\system32\rundll32.exe
-  prog_args:
+doc:
+  prog_name: WINWORD.exe
+  prog_path: C:\Program Files\Microsoft Office\OFFICE11\WINWORD.exe
+  prog_args: /C
 
-html:          # c:\Program Files\Internet Explorer\iexplore.exe" -new
-  prog_name: Microsoft Explorer IEXPLORE.EXE
-  prog_path: C:\windows\system32\cmd.exe
-  prog_args: /C start "C:\\Programmi\\Internet Explorer\\IEXPLORE.EXE"
-
-#doc:
-#  prog_name: Microsoft Word 2003
-#  prog_path:
-#  prog_args:
-
-#pdf:
-#  prog_name: Acrobat Reader Version 1.0
-#  prog_path:
-#  prog_args:
+docx:
+  prog_name: WINWORD.exe
+  prog_path: C:\Program Files\Microsoft Office\OFFICE11\WINWORD.exe
+  prog_args: /C
 

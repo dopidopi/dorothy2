@@ -48,6 +48,12 @@ module Dorothy
         ssh.scp.download! file, dest
       end
     end
+    def getremotememfile(host, user, pass, folder, port=22)
+      Net::SSH.start(host, user, :password => pass, :port =>port) do |ssh|
+        #return ssh.exec!("pwd")
+        return ssh.exec!("ls -t #{folder}*.vmsn | head -n 1")
+      end
+    end
   end
 
   class Insertdb
@@ -246,6 +252,7 @@ module Dorothy
     attr_accessor :dir_bin
     attr_accessor :dir_screens
     attr_accessor :dir_downloads
+    attr_accessor :dir_memoryfile
 
     def initialize(file)
 

@@ -55,6 +55,61 @@ module Dorothy
         @vm.RevertToCurrentSnapshot_Task
       end
 
+  def find_node(tree, name)
+    snapshot = nil
+    tree.each do |node|
+      if node.name == name
+        snapshot = node.snapshot
+      elsif !node.childSnapshotList.empty?
+        snapshot = find_node(node.childSnapshotList, name)
+      end
+    end
+    return snapshot
+  end
+
+# Displays the chain of snapshots for a vm
+   def display_node(node, current, shift=1)
+    	out = ""
+        out << "+--"*shift
+	    if node.snapshot == current
+	      out << "CURRENT#{node.name}" << "\n"
+	    else
+	      out << "#{node.name}" << "\n"
+	    end
+	    if !node.childSnapshotList.empty?
+	      node.childSnapshotList.each { |item| out << display_node(item, current, shift+1) }
+	    end
+	    out
+   end
+
+# Revert the vm to a previous snapshot state 
+      def revertToSnapshot(snapshotName)
+	if @vm.snapshot
+	      snapshot_list = @vm.snapshot.rootSnapshotList
+	      current_snapshot = @vm.snapshot.currentSnapshot
+	end
+        #snapshot_list.each { |i| puts display_node(i, current_snapshot) }
+        snapshot = find_node(snapshot_list, snapshotName)
+	snapshot.RevertToSnapshot_Task(:suppressPowerOn => false).wait_for_completion
+      end
+
+# Deletes a  snapshot 
+      def deleteSnapshot(snapshotName)
+	if @vm.snapshot
+	      snapshot_list = @vm.snapshot.rootSnapshotList
+	      current_snapshot = @vm.snapshot.currentSnapshot
+	end
+        #snapshot_list.each { |i| puts display_node(i, current_snapshot) }
+        snapshot = find_node(snapshot_list, snapshotName)
+	snapshot.RemoveSnapshot_Task(name:snapshotName, removeChildren:true).wait_for_completion
+      end
+
+# Creates a new snapshot. As a side effect, this updates the current snapshot
+      def createSnapshot(snapshotName)
+        @vm.CreateSnapshot_Task(name:snapshotName,memory:true,quiesce:false).wait_for_completion
+        #@vm.CreateSnapshot_Task("new")
+      end
+
       def copy_file(filename,file)
         filepath = "C:\\#{filename}" #put md5 hash
 
@@ -73,7 +128,9 @@ module Dorothy
       def exec_file(filename, program)
         program["prog_args"].nil? ? args = "" : args = program["prog_args"]
         args += " #{filename}"
-        cmd = { :programPath => program["prog_path"], :arguments => args }
+puts filename
+        #cmd = { :programPath => program["prog_path"], :arguments => args }
+        cmd = { :programPath => filename, :arguments => "" }
         pid = @pm.StartProgramInGuest(:vm => @vm , :auth => @auth, :spec => cmd )
         pid.to_i
       end
@@ -128,6 +185,7 @@ module Dorothy
         screenpath = "/vmfs/volumes/" + a[0].delete("[]") + "/" + a[1]
         return screenpath
       end
+
     end
 
     #Empty method for showing how it could be easy to extend the dorothy's VSM with another virtual manager.
