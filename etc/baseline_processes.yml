@@ -1,0 +1,155 @@
+---
+2696:
+  pname: ping.exe
+  owner: Administrator
+  cmdLine: ! '"C:\windows\system32\ping.exe" -n 1 www.google.com'
+  startTime: 2013-12-02 11:03:36.000000000 Z
+  endTime: 2013-12-02 11:03:37.000000000 Z
+  exitCode: 0
+0:
+  pname: ! '[System'
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: ! '[System Process]'
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+4:
+  pname: System
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: System
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+360:
+  pname: smss.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: \SystemRoot\System32\smss.exe
+  startTime: 2013-11-23 05:09:39.000000000 Z
+  endTime: 
+  exitCode: 
+408:
+  pname: csrss.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: csrss.exe
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+432:
+  pname: winlogon.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: winlogon.exe
+  startTime: 2013-11-23 05:09:41.000000000 Z
+  endTime: 
+  exitCode: 
+476:
+  pname: services.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: C:\WINDOWS\system32\services.exe
+  startTime: 2013-11-23 05:09:41.000000000 Z
+  endTime: 
+  exitCode: 
+488:
+  pname: lsass.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: C:\WINDOWS\system32\lsass.exe
+  startTime: 2013-11-23 05:09:41.000000000 Z
+  endTime: 
+  exitCode: 
+648:
+  pname: vmacthlp.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: ! '"C:\Program Files\VMware\VMware Tools\vmacthlp.exe"'
+  startTime: 2013-11-23 05:09:41.000000000 Z
+  endTime: 
+  exitCode: 
+672:
+  pname: svchost
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: C:\WINDOWS\system32\svchost -k DcomLaunch
+  startTime: 2013-11-23 05:09:42.000000000 Z
+  endTime: 
+  exitCode: 
+724:
+  pname: svchost.exe
+  owner: NT AUTHORITY\NETWORK SERVICE
+  cmdLine: svchost.exe
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+788:
+  pname: svchost.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: C:\WINDOWS\System32\svchost.exe -k netsvcs
+  startTime: 2013-11-23 05:09:42.000000000 Z
+  endTime: 
+  exitCode: 
+836:
+  pname: svchost.exe
+  owner: NT AUTHORITY\NETWORK SERVICE
+  cmdLine: svchost.exe
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+872:
+  pname: svchost.exe
+  owner: NT AUTHORITY\LOCAL SERVICE
+  cmdLine: svchost.exe
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+1112:
+  pname: spoolsv.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: C:\WINDOWS\system32\spoolsv.exe
+  startTime: 2013-11-23 05:09:43.000000000 Z
+  endTime: 
+  exitCode: 
+1196:
+  pname: svchost.exe
+  owner: NT AUTHORITY\LOCAL SERVICE
+  cmdLine: svchost.exe
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+1432:
+  pname: vmtoolsd.exe
+  owner: NT AUTHORITY\SYSTEM
+  cmdLine: ! '"C:\Program Files\VMware\VMware Tools\vmtoolsd.exe"'
+  startTime: 2013-11-23 05:09:52.000000000 Z
+  endTime: 
+  exitCode: 
+1640:
+  pname: Explorer.EXE
+  owner: BANK-WKST01\Administrator
+  cmdLine: C:\WINDOWS\Explorer.EXE
+  startTime: 2013-11-23 05:09:55.000000000 Z
+  endTime: 
+  exitCode: 
+1868:
+  pname: wscntfy.exe
+  owner: BANK-WKST01\Administrator
+  cmdLine: C:\WINDOWS\system32\wscntfy.exe
+  startTime: 2013-11-23 05:09:56.000000000 Z
+  endTime: 
+  exitCode: 
+1900:
+  pname: alg.exe
+  owner: NT AUTHORITY\LOCAL SERVICE
+  cmdLine: alg.exe
+  startTime: 1970-01-01 00:00:00.000000000 Z
+  endTime: 
+  exitCode: 
+176:
+  pname: vmtoolsd.exe
+  owner: BANK-WKST01\Administrator
+  cmdLine: ! '"C:\Program Files\VMware\VMware Tools\vmtoolsd.exe" -n vmusr'
+  startTime: 2013-11-23 05:09:57.000000000 Z
+  endTime: 
+  exitCode: 
+348:
+  pname: ctfmon.exe
+  owner: BANK-WKST01\Administrator
+  cmdLine: ! '"C:\WINDOWS\system32\ctfmon.exe" '
+  startTime: 2013-11-23 05:09:57.000000000 Z
+  endTime: 
+  exitCode: 

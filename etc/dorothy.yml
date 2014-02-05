@@ -1,0 +1,47 @@
+---
+sandbox:
+  sleeptime: 10
+  num_screenshots: 1
+  screen1time: 1
+  network: 10.10.10.0/0
+env:
+  home: /root/Dorothy
+  pidfile: /root/Dorothy/var/dorothy.pid
+  pidfile_parser: /root/Dorothy/var/doroParser.pid
+  analysis_dir: /root/Dorothy/opt/analyzed
+  geoip: /root/Dorothy/etc/geo/GeoLiteCity.dat
+  geoasn: /root/Dorothy/etc/geo/GeoIPASNum.dat
+  geoisp: /root/Dorothy/etc/geo/GeoIPISP.dat
+  dtimeout: 3600
+  logfile: /root/Dorothy/var/log/dorothy.log
+  logfile_parser: /root/Dorothy/var/log/parser.log
+  loglevel: 0
+  logage: weekly
+  testmode: true
+dorothive:
+  dbhost: localhost
+  dbname: dorothive
+  dbuser: postgres
+  dbpass: postgres
+  ddl: /var/lib/gems/1.9.1/gems/dorothy2-1.2.0/etc/ddl/dorothive.ddl
+nam:
+  host: 192.168.10.63
+  interface: eth0
+  user: dorothy
+  pass: Dorothy!
+  port: 22
+  pcaphome: /home/dorothy/pcaps
+virustotal:
+  vtapikey: ''
+esx:
+  host: 192.168.10.52
+  user: root
+  pass: Dorothy!?!
+  VMhome: /vmfs/volumes/datastore1/WinXP-edu/
+pcapr:
+  local: true
+  host: localhost
+  port: 8080
+memory:
+  memfile:
+

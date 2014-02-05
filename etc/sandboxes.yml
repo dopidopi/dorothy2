@@ -1,0 +1,21 @@
+#############################################
+### DOROTHY SANDBOX LIST                    #
+#############################################
+###
+###
+### List of the available virtual machines
+### (loaded into ESX)
+### WARNING - after editing this file, run
+### $dorothy_start -sandbox reload
+#############################################
+---
+
+WinXP-edu:
+  type: virtual
+  os: Windows
+  version: XP SP3
+  os_lang: eng
+  ipaddress: 192.168.10.55
+  username: administrator
+  password: password
+

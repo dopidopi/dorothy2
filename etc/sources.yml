@@ -1,0 +1,24 @@
+#############################################
+### DOROTHY SOURCE LIST                     #
+#############################################
+###
+### type means the communication channel used
+### to download the binaries, possible values
+### are: system | ssh
+###
+### typeid defines the type of the source, it
+### depends on a userdefined-type in
+### dorothive(DB) (table Sensors) please use
+### ONLY the following ones (or add new ones
+### in the DB accordingly)
+###
+### 0  - lowinteraction
+### 1  - external source
+### 2  - unknown
+#############################################
+---
+malwarefolder:
+    type: system
+    localdir: /root/Dorothy/opt/bins/manual
+    typeid: 2
+
